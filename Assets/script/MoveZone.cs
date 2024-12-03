@@ -19,6 +19,7 @@ public class Camera : MonoBehaviour
 
 
     private bool isMoving;
+    public bool onWood;
 
     public void GoRight()
     {
@@ -31,7 +32,7 @@ public class Camera : MonoBehaviour
     private IEnumerator MoveRight()
     {
         isMoving = true;
-
+        onWood = false;
 
         while (Vector3.Distance(transform.position, shopPos.position) > 0.1f)
         {
@@ -53,7 +54,6 @@ public class Camera : MonoBehaviour
     private IEnumerator MoveLeft()
     {
         isMoving = true;
-
         
         while (Vector3.Distance(transform.position, woodPos.position) > 0.1f)
         {     
@@ -62,6 +62,7 @@ public class Camera : MonoBehaviour
         }
         transform.position = woodPos.position;
         isMoving = false;
+        onWood = true;
     }
 
     
