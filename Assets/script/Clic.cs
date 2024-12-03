@@ -32,6 +32,6 @@ public class ClickZone : MonoBehaviour
 
     void OnZoneClicked()
     {
-        manager.AddMoney(10);
+        manager.AddWood(10);
     }
 }

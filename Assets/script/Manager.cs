@@ -5,20 +5,25 @@ using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
+    public int wood;
     public int money;
+    public Text woodText;
     public Text moneyText;
+
     void Start ()
     {
         money = 0;
+        wood = 0;
     }
 
     void Update()
     {
+        woodText.text = wood.ToString();
         moneyText.text = money.ToString();
     }
 
-    public void AddMoney(int amount)
+    public void AddWood(int amount)
     {
-        money += amount;
+        wood += amount;
     }
 }
