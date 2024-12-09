@@ -7,8 +7,18 @@ using UnityEngine.UI;
 public class Ui : MonoBehaviour
 {
 
-    public GameObject upgradewindow;
+    public GameObject upgradeWindow;
     private bool Upgradeisopen = false;
+    public GameObject devWindow;
+    private bool devisopen = false;
+    public GameObject settingWindow;
+    private bool settingisopen = false;
+
+    [SerializeField]
+    public Sprite[] icons;
+    public Image AxeIcone;
+    private int currentIconIndex = 0;
+
 
     public Text woodText;
     public Text moneyText;
@@ -17,20 +27,6 @@ public class Ui : MonoBehaviour
     public Text autoWoodCostText;
     public Text autoValueCostText;
 
-    public void OpenUpgradeWindow()
-    {
-        if (Upgradeisopen != true)
-        {
-            upgradewindow.SetActive(true);
-            Upgradeisopen = true;
-        }
-        else
-        {
-            upgradewindow.SetActive(false);
-            Upgradeisopen = false;
-        }
-        
-    }
 
     void Update()
     {
@@ -38,8 +34,65 @@ public class Ui : MonoBehaviour
         moneyText.text = Manager.Instance._money.ToString();
         woodPerMinuteText.text = Manager.Instance._woodPerMinute.ToString();
         numberOfAutoText.text = Manager.Instance._nombreOfAuto.ToString();
-        autoWoodCostText.text = Manager.Instance._autoWoodCost.ToString();
-        autoValueCostText.text = Manager.Instance._autoValueCost.ToString();
+        autoWoodCostText.text = "Acheter pour :\n" + Manager.Instance._autoWoodCost.ToString();
+        autoValueCostText.text = "Acheter pour :\n" + Manager.Instance._autoValueCost.ToString();
+    }
+
+    public void OpenUpgradeWindow()
+    {
+        if (Upgradeisopen != true)
+        {
+            upgradeWindow.SetActive(true);
+            Upgradeisopen = true;
+        }
+        else
+        {
+            upgradeWindow.SetActive(false);
+            Upgradeisopen = false;
+        }
+
+    }
+    public void OpenDevWindow()
+    {
+        if (Upgradeisopen != true)
+        {
+            devWindow.SetActive(true);
+            Upgradeisopen = true;
+        }
+        else
+        {
+            devWindow.SetActive(false);
+            Upgradeisopen = false;
+        }
+
+    }
+
+
+
+    public void SettingWindowOpen()
+    {
+        if (Upgradeisopen != true)
+        {
+            settingWindow.SetActive(true);
+            Upgradeisopen = true;
+        }
+
+    }
+
+    public void SettingWindowClose()
+    {
+        if (Upgradeisopen == true)
+        {
+            settingWindow.SetActive(false);
+            Upgradeisopen = false;
+        }
+
+    }
+
+    public void ChangeSprite()
+    {
+        currentIconIndex = (currentIconIndex + 1) % icons.Length;
+        AxeIcone.sprite = icons[currentIconIndex];
     }
 
 }

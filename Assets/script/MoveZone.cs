@@ -5,31 +5,40 @@ using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Camera : MonoBehaviour
 {
     [SerializeField]
     private float speed;
 
-    [SerializeField]
-    private Transform woodPos;
+    public Transform woodPos;
+    public Transform shopPos;
+    public GameObject rightButton;
+    public GameObject leftButton;
+    public GameObject sellPanel;
 
-    [SerializeField]
-    private Transform shopPos;
 
 
     private bool isMoving;
     public bool onWood;
 
-    public void GoRight()
+    public void Start()
+    {
+        leftButton.SetActive(false);
+    }
+    public void GoLeft()
     {
         if (!isMoving)
         {
+            leftButton.SetActive(true);
+            sellPanel.SetActive(false);
             StartCoroutine(MoveRight());
+            rightButton.SetActive(false);
         }
 
     }
-    private IEnumerator MoveRight()
+    private IEnumerator MoveLeft()
     {
         isMoving = true;
         onWood = false;
@@ -43,15 +52,18 @@ public class Camera : MonoBehaviour
         isMoving = false;
     }
 
-    public void GoLeft()
+    public void GoRight()
     {
         if (!isMoving)
         {
+            leftButton.SetActive(false);            
             StartCoroutine(MoveLeft());
+            rightButton.SetActive(true);
+            sellPanel.SetActive(true);
         }
         
     }
-    private IEnumerator MoveLeft()
+    private IEnumerator MoveRight()
     {
         isMoving = true;
         

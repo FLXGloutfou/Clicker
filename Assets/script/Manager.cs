@@ -8,6 +8,7 @@ public class Manager : MonoBehaviour
 {
     public static Manager Instance;
 
+
     private void Awake()
     {
         if (Manager.Instance == null)
@@ -20,6 +21,7 @@ public class Manager : MonoBehaviour
         }
     }
 
+    public Camera cameraScript;
 
     public int _wood = 0;
     public int _money = 0;
@@ -97,7 +99,6 @@ public class Manager : MonoBehaviour
     }
 
 
-
     public void AutoValueIncrease()
     {
         if (_money > _autoValueCost)
@@ -109,6 +110,16 @@ public class Manager : MonoBehaviour
             _autoValueCost = (int)Mathf.Round(tempAutoValue);
 
             autoWoodValue += 10;
+        }
+    }
+
+
+
+    public void OnZoneClicked()
+    {
+        if (cameraScript != null && cameraScript.onWood)
+        {
+            AddWood(10);
         }
     }
 }
