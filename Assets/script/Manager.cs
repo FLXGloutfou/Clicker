@@ -29,11 +29,16 @@ public class Manager : MonoBehaviour
     public int _nombreOfAuto;
     public int _autoWoodCost;
     public int _autoValueCost;
+    private int _numberofvallueupgrade = 5;
     
 
     private bool isAutoClicking = false;
     private int autoWoodValue;
 
+    [SerializeField]
+    public Sprite[] icons;
+    public Image AxeIcone;
+    private int currentIconIndex = 0;
 
 
     void Start ()
@@ -101,8 +106,9 @@ public class Manager : MonoBehaviour
 
     public void AutoValueIncrease()
     {
-        if (_money > _autoValueCost)
+        if (_money > _autoValueCost && _numberofvallueupgrade > 0)
         {
+            _numberofvallueupgrade--;
             _money -= _autoValueCost;
 
             var tempAutoValue = (float)_autoValueCost;
@@ -110,6 +116,10 @@ public class Manager : MonoBehaviour
             _autoValueCost = (int)Mathf.Round(tempAutoValue);
 
             autoWoodValue += 10;
+
+
+            currentIconIndex = (currentIconIndex + 1) % icons.Length;
+            AxeIcone.sprite = icons[currentIconIndex];
         }
     }
 
@@ -120,6 +130,7 @@ public class Manager : MonoBehaviour
         if (cameraScript != null && cameraScript.onWood)
         {
             AddWood(10);
+            Debug.Log("caclic");
         }
     }
 }

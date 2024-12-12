@@ -14,11 +14,6 @@ public class Ui : MonoBehaviour
     public GameObject settingWindow;
     private bool settingisopen = false;
 
-    [SerializeField]
-    public Sprite[] icons;
-    public Image AxeIcone;
-    private int currentIconIndex = 0;
-
 
     public Text woodText;
     public Text moneyText;
@@ -65,34 +60,6 @@ public class Ui : MonoBehaviour
             Upgradeisopen = false;
         }
 
-    }
-
-
-
-    public void SettingWindowOpen()
-    {
-        if (Upgradeisopen != true)
-        {
-            settingWindow.SetActive(true);
-            Upgradeisopen = true;
-        }
-
-    }
-
-    public void SettingWindowClose()
-    {
-        if (Upgradeisopen == true)
-        {
-            settingWindow.SetActive(false);
-            Upgradeisopen = false;
-        }
-
-    }
-
-    public void ChangeSprite()
-    {
-        currentIconIndex = (currentIconIndex + 1) % icons.Length;
-        AxeIcone.sprite = icons[currentIconIndex];
     }
 
 }
