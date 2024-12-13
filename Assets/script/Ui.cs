@@ -9,8 +9,8 @@ public class Ui : MonoBehaviour
 
     public GameObject upgradeWindow;
     private bool Upgradeisopen = false;
-    public GameObject devWindow;
-    private bool devisopen = false;
+    public GameObject shopUpgrade;
+    private bool shopUpgradeIsOpen = false;
     public GameObject settingWindow;
     private bool settingisopen = false;
 
@@ -47,17 +47,17 @@ public class Ui : MonoBehaviour
         }
 
     }
-    public void OpenDevWindow()
+    public void OpenShopUpWindow()
     {
-        if (Upgradeisopen != true)
+        if (shopUpgradeIsOpen != true)
         {
-            devWindow.SetActive(true);
-            Upgradeisopen = true;
+            shopUpgrade.SetActive(true);
+            shopUpgradeIsOpen = true;
         }
         else
         {
-            devWindow.SetActive(false);
-            Upgradeisopen = false;
+            shopUpgrade.SetActive(false);
+            shopUpgradeIsOpen = false;
         }
 
     }
