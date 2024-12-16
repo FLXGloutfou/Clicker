@@ -11,8 +11,6 @@ public class Ui : MonoBehaviour
     private bool Upgradeisopen = false;
     public GameObject shopUpgrade;
     private bool shopUpgradeIsOpen = false;
-    public GameObject settingWindow;
-    private bool settingisopen = false;
 
 
     public Text woodText;
@@ -27,8 +25,8 @@ public class Ui : MonoBehaviour
     {
         woodText.text = Manager.Instance._wood.ToString();
         moneyText.text = Manager.Instance._money.ToString();
-        woodPerMinuteText.text = Manager.Instance._woodPerMinute.ToString();
-        numberOfAutoText.text = Manager.Instance._nombreOfAuto.ToString();
+        //woodPerMinuteText.text = Manager.Instance._woodPerMinute.ToString();
+        //numberOfAutoText.text = Manager.Instance._nombreOfAuto.ToString();
         autoWoodCostText.text = "Acheter pour :\n" + Manager.Instance._autoWoodCost.ToString();
         autoValueCostText.text = "Acheter pour :\n" + Manager.Instance._autoValueCost.ToString();
     }
