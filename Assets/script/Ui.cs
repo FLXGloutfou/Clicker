@@ -37,6 +37,11 @@ public class Ui : MonoBehaviour
         {
             upgradeWindow.SetActive(true);
             Upgradeisopen = true;
+            if (shopUpgradeIsOpen == true)
+            {
+                shopUpgrade.SetActive(false);
+                shopUpgradeIsOpen = false;
+            }
         }
         else
         {
@@ -51,6 +56,11 @@ public class Ui : MonoBehaviour
         {
             shopUpgrade.SetActive(true);
             shopUpgradeIsOpen = true;
+            if (Upgradeisopen == true)
+            {
+                upgradeWindow.SetActive(false);
+                Upgradeisopen = false;
+            }
         }
         else
         {

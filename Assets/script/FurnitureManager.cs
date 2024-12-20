@@ -2,24 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class FurnitureManager : MonoBehaviour
 {
-    public List<FurnitureSlot> FurnitureSlots = new List<FurnitureSlot>();
+    public List<FurnitureSlot> FurnitureSlots = new List<FurnitureSlot>(); 
     public GameObject SlotUIPrefab; 
-    public Transform SlotsContainer;
-
-    public Text _planNameText;
-    public Text _WoodCostText;
-    public Text _RevenueText;
-    public Image _FurnitureIconeText;
-
+    public Transform SlotsContainer; 
 
     public void InitializeSlots(int numberOfSlots)
     {
         for (int i = 0; i < numberOfSlots; i++)
         {
-            Debug.Log("slot" + i);
             GameObject newSlotUI = Instantiate(SlotUIPrefab, SlotsContainer);
             FurnitureSlot newSlot = new FurnitureSlot
             {
@@ -50,12 +44,13 @@ public class FurnitureManager : MonoBehaviour
     {
         GameObject ui = slot.UIObject;
 
-        _planNameText.text = slot.Plan._name;
-        _WoodCostText.text = "Coût : " + slot.Plan._woodCost;
+        
+        ui.transform.Find("Title").GetComponent<Text>().text = slot.Plan._name;
+        ui.transform.Find("Cost").GetComponent<Text>().text = "Coût : " + slot.Plan._woodCost;
         //ui.transform.Find("Profit").GetComponent<Text>().text = "Vente : " + slot.Plan._sellValue;
-        _RevenueText.text = "Revenus : " + slot.Plan._revenuePerSecond + " / sec";
+        ui.transform.Find("Revenue").GetComponent<Text>().text = "Revenus : " + slot.Plan._revenuePerSecond + " / sec";
 
-        Image icon = _FurnitureIconeText;
+        Image icon = ui.transform.Find("Icon").GetComponent<Image>();
         if (icon != null && slot.Plan._icon != null)
         {
             icon.sprite = slot.Plan._icon;
@@ -79,7 +74,7 @@ public class FurnitureManager : MonoBehaviour
                     UpdateSlotUI(slot);
                 }
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1); 
         }
     }
 }
