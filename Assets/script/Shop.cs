@@ -9,6 +9,7 @@ public class Shop : MonoBehaviour
     public SpriteRenderer Shopsprite;
     public Sprite[] ShopLVL;
     private int CurentLVL;
+    private int _shopLVLupPrize = 1000;
 
     void Start()
     {
@@ -27,11 +28,23 @@ public class Shop : MonoBehaviour
 
     public void ShopLvlUp()
     {
-        if (CurentLVL <= 4)
+        if (Manager.Instance._money > _shopLVLupPrize)
         {
-            CurentLVL++;
-            Shopsprite.sprite = ShopLVL[CurentLVL];
+            if (CurentLVL < 5)
+            {
+                Manager.Instance._money -= _shopLVLupPrize;
+                Shopsprite.sprite = ShopLVL[CurentLVL];
+                FurnitureManager.UnlockSlot(CurentLVL);
+                CurentLVL++;
+            }
+            else
+            {
+                Debug.Log("Boutique au niveau maximum.");
+            }
         }
-        
+        else
+        {
+            Debug.Log("Pas assez d'argent.");
+        }
     }
 }

@@ -8,19 +8,32 @@ public class FurnitureManager : MonoBehaviour
 {
     public List<FurnitureSlot> FurnitureSlots = new List<FurnitureSlot>(); 
     public GameObject SlotUIPrefab; 
-    public Transform SlotsContainer; 
+    public Transform SlotsContainer;
 
     public void InitializeSlots(int numberOfSlots)
     {
         for (int i = 0; i < numberOfSlots; i++)
         {
             GameObject newSlotUI = Instantiate(SlotUIPrefab, SlotsContainer);
+            newSlotUI.SetActive(false);
             FurnitureSlot newSlot = new FurnitureSlot
             {
                 IsOccupied = false,
                 UIObject = newSlotUI
             };
             FurnitureSlots.Add(newSlot);
+        }
+    }
+
+    public void UnlockSlot(int slotIndex)
+    {
+        if (slotIndex < FurnitureSlots.Count && slotIndex >= 0)
+        {
+            FurnitureSlots[slotIndex].UIObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Index de slot invalide ou déjà débloqué.");
         }
     }
 

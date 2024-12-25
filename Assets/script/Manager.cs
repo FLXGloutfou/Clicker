@@ -130,7 +130,6 @@ public class Manager : MonoBehaviour
         if (cameraScript != null && cameraScript.onWood)
         {
             AddWood(10);
-            Debug.Log("caclic");
         }
     }
 }
