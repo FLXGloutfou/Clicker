@@ -6,66 +6,67 @@ using UnityEngine.UI;
 
 public class Ui : MonoBehaviour
 {
-
-    public GameObject upgradeWindow;
-    private bool Upgradeisopen = false;
-    public GameObject shopUpgrade;
-    private bool shopUpgradeIsOpen = false;
-
-
-    public Text woodText;
-    public Text moneyText;
-    public Text woodPerMinuteText;
-    public Text numberOfAutoText;
-    public Text autoWoodCostText;
-    public Text autoValueCostText;
+    //_____________________________________________________________________________//
+    //VARIABLE//
+    public GameObject _upgradeWindow;
+    private bool _upgradeisopen = false;
+    public GameObject _shopWindow;
+    private bool _shopWindowIsOpen = false;
 
 
+    public Text _woodText;
+    public Text _moneyText;
+    public Text _woodPerMinuteText;
+    public Text _numberOfAutoText;
+    public Text _autoWoodCostText;
+    public Text _autoValueCostText;
+
+    //_____________________________________________________________________________//
     void Update()
     {
-        woodText.text = Manager.Instance._wood.ToString();
-        moneyText.text = Manager.Instance._money.ToString();
+        _woodText.text = Manager.Instance._wood.ToString();
+        _moneyText.text = Manager.Instance._money.ToString();
         //woodPerMinuteText.text = Manager.Instance._woodPerMinute.ToString();
         //numberOfAutoText.text = Manager.Instance._nombreOfAuto.ToString();
-        autoWoodCostText.text = "Acheter pour :\n" + Manager.Instance._autoWoodCost.ToString();
-        autoValueCostText.text = "Acheter pour :\n" + Manager.Instance._autoValueCost.ToString();
+        _autoWoodCostText.text = "Acheter pour :\n" + Manager.Instance._autoLumberCost.ToString();
+        _autoValueCostText.text = "Acheter pour :\n" + Manager.Instance._autoLumberToolCost.ToString();
     }
 
     public void OpenUpgradeWindow()
     {
-        if (Upgradeisopen != true)
+        if (_upgradeisopen != true)
         {
-            upgradeWindow.SetActive(true);
-            Upgradeisopen = true;
-            if (shopUpgradeIsOpen == true)
+            _upgradeWindow.SetActive(true);
+            _upgradeisopen = true;
+            if (_shopWindowIsOpen == true)
             {
-                shopUpgrade.SetActive(false);
-                shopUpgradeIsOpen = false;
+                _shopWindow.SetActive(false);
+                _shopWindowIsOpen = false;
             }
         }
         else
         {
-            upgradeWindow.SetActive(false);
-            Upgradeisopen = false;
+            _upgradeWindow.SetActive(false);
+            _upgradeisopen = false;
         }
 
     }
     public void OpenShopUpWindow()
     {
-        if (shopUpgradeIsOpen != true)
+        if (_shopWindowIsOpen != true)
         {
-            shopUpgrade.SetActive(true);
-            shopUpgradeIsOpen = true;
-            if (Upgradeisopen == true)
+            _shopWindow.SetActive(true);
+            _shopWindowIsOpen = true;
+            if (_upgradeisopen == true)
             {
-                upgradeWindow.SetActive(false);
-                Upgradeisopen = false;
+                _upgradeWindow.SetActive(false);
+                _upgradeisopen = false;
             }
         }
         else
         {
-            shopUpgrade.SetActive(false);
-            shopUpgradeIsOpen = false;
+            _shopWindow.SetActive(false);
+            _shopWindowIsOpen = false;
         }
 
     }

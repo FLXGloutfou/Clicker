@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 396136390449899858}
   - component: {fileID: 8031737269102720292}
   - component: {fileID: 8790286334935891213}
+  - component: {fileID: 8806050080322241933}
   m_Layer: 5
   m_Name: Item to sell
   m_TagString: Untagged
@@ -80,6 +81,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8806050080322241933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2581101920347442119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9857ea8fdce897a419c48e4ee54dba91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _titleUi: {fileID: 8908638058638263019}
+  _woodCostUi: {fileID: 9132281998566721398}
+  _stockUI: {fileID: 2395217057998557101}
+  _iconUI: {fileID: 1492121604159433055}
 --- !u!1 &3812423171584579442
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +109,7 @@ GameObject:
   - component: {fileID: 7646591617837073254}
   - component: {fileID: 9132281998566721398}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: WoodCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,9 +175,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cost of wood
+  m_Text: '0
 
-    10'
+'
 --- !u!1 &4079977799098109529
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +269,7 @@ GameObject:
   - component: {fileID: 3968101475946459333}
   - component: {fileID: 2395217057998557101}
   m_Layer: 5
-  m_Name: Revenue
+  m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,9 +335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Money/sec
-
-    10'
+  m_Text: 0
 --- !u!1 &7091448742485812580
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,4 +610,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6242545748137404096}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8806050080322241933}
+        m_TargetAssemblyTypeName: ItemCraft, Assembly-CSharp
+        m_MethodName: CraftItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

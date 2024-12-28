@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
+
     public static Manager Instance;
-
-
     private void Awake()
     {
         if (Manager.Instance == null)
@@ -20,103 +19,89 @@ public class Manager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public Camera cameraScript;
+    //_____________________________________________________________________________//
+    //DEV_VARIABLE//
+    public int woodboost;
+    
+    //_____________________________________________________________________________//
+    //VARIABLE//
 
     public int _wood = 0;
     public int _money = 0;
-    public int _woodPerMinute;
-    public int _nombreOfAuto;
-    public int _autoWoodCost;
-    public int _autoValueCost;
-    private int _numberofvallueupgrade = 5;
-    
+    public int _autoLumberCost = 100;
+    public int _autoLumberToolCost = 500;
+    private int _woodPerMin;
+    private int _autoLumberNumber = 0;
+    private int _maxToolUp = 0;
+    private int _autoLumberValue = 10;
+    private int _logPrice = 1;
 
-    private bool isAutoClicking = false;
-    private int autoWoodValue;
+    private bool _isAutoClicking = false;
+    
 
     [SerializeField]
     public Sprite[] icons;
     public Image AxeIcone;
     private int currentIconIndex = 0;
 
-
-    void Start ()
-    {
-        _nombreOfAuto = 0;
-        autoWoodValue = 10;
-        _autoWoodCost = 100;
-        _autoValueCost = 100;
-    }
-
-    void Update()
-    {
-
-    }
+    
+    //______________________________________________________________________________//
     public void SetWood(int newAmount)
     {
         _wood = newAmount;
-        //feedback
     }
     public void AddWood(int amount)
     {
-        SetWood(_wood+amount);
+        SetWood(_wood+amount+woodboost);
     }
 
 
     public void ButtonSellWood()
     { 
-        _money = _money + _wood * 10;
-        _wood = 0;
+        _money = _money + _wood * _logPrice;
+        SetWood(0);
     }
 
     public void ButtonAutoWood()
     {
-        if (_money > _autoWoodCost)
+        if (_money > _autoLumberCost)
         {
-            _money -= _autoWoodCost;
-            var tempAutoWood = (float)_autoWoodCost;
-            tempAutoWood *= 1.5f;
-            _autoWoodCost = (int)Mathf.Round(tempAutoWood);
+            _money -= _autoLumberCost;
+            _autoLumberCost += 100 + 200 * _autoLumberNumber;
   
-            _nombreOfAuto++;
-            if (!isAutoClicking)
+            _autoLumberNumber++;
+            if (!_isAutoClicking)
             {
-                StartCoroutine(createAutoClic());
+                StartCoroutine(CreateAutoClic());
             }
         }
         
     }
 
-    public IEnumerator createAutoClic()
+    public IEnumerator CreateAutoClic()
     {
         
-        isAutoClicking = true;
+        _isAutoClicking = true;
 
-        while (_nombreOfAuto > 0)
+        while (_autoLumberNumber > 0)
         {
-            _woodPerMinute = _nombreOfAuto * autoWoodValue;
-            AddWood(_woodPerMinute);
+            _woodPerMin = _autoLumberNumber * _autoLumberValue;
+            AddWood(_woodPerMin);
             yield return new WaitForSeconds(1f);
         }
 
-        isAutoClicking = false;
+        _isAutoClicking = false;
     }
 
 
     public void AutoValueIncrease()
     {
-        if (_money > _autoValueCost && _numberofvallueupgrade > 0)
+        if (_money > _autoLumberToolCost && _maxToolUp <= 3)
         {
-            _numberofvallueupgrade--;
-            _money -= _autoValueCost;
-
-            var tempAutoValue = (float)_autoValueCost;
-            tempAutoValue *= 1.5f;
-            _autoValueCost = (int)Mathf.Round(tempAutoValue);
-
-            autoWoodValue += 10;
-
+            _maxToolUp++;
+            _money -= _autoLumberToolCost;
+            _autoLumberToolCost = _autoLumberToolCost + 2500 * _maxToolUp ; 
+            _autoLumberValue += 5 * (_maxToolUp+1) ;
 
             currentIconIndex = (currentIconIndex + 1) % icons.Length;
             AxeIcone.sprite = icons[currentIconIndex];
@@ -124,13 +109,5 @@ public class Manager : MonoBehaviour
     }
 
 
-
-    public void OnZoneClicked()
-    {
-        if (cameraScript != null && cameraScript.onWood)
-        {
-            AddWood(10);
-        }
-    }
 }
 

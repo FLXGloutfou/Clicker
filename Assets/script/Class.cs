@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FurnitureSlot
 {
-    public FurniturePlanSO Plan; 
-    public bool IsOccupied; 
-    public GameObject UIObject; 
+    public FurniturePlanSO _plan; 
+    public bool _isOccupied; 
+    public GameObject _uIObject; 
 }

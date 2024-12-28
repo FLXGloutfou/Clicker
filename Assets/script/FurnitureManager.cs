@@ -6,30 +6,48 @@ using Unity.VisualScripting;
 
 public class FurnitureManager : MonoBehaviour
 {
-    public List<FurnitureSlot> FurnitureSlots = new List<FurnitureSlot>(); 
-    public GameObject SlotUIPrefab; 
-    public Transform SlotsContainer;
 
+    public static FurnitureManager Instance { get; private set; }
+
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    //_____________________________________________________________________________//
+    //VARIABLE//
+    public List<FurnitureSlot> _furnitureSlotsList = new List<FurnitureSlot>(); 
+    public GameObject _slotUIPrefab; 
+    public Transform _slotsContainer;
+
+    //_____________________________________________________________________________//
     public void InitializeSlots(int numberOfSlots)
     {
         for (int i = 0; i < numberOfSlots; i++)
         {
-            GameObject newSlotUI = Instantiate(SlotUIPrefab, SlotsContainer);
+            GameObject newSlotUI = Instantiate(_slotUIPrefab, _slotsContainer);
             newSlotUI.SetActive(false);
             FurnitureSlot newSlot = new FurnitureSlot
-            {
-                IsOccupied = false,
-                UIObject = newSlotUI
+            {   
+                _isOccupied = false,
+                _uIObject = newSlotUI
             };
-            FurnitureSlots.Add(newSlot);
+            _furnitureSlotsList.Add(newSlot);
         }
     }
 
     public void UnlockSlot(int slotIndex)
     {
-        if (slotIndex < FurnitureSlots.Count && slotIndex >= 0)
+        if (slotIndex < _furnitureSlotsList.Count && slotIndex >= 0)
         {
-            FurnitureSlots[slotIndex].UIObject.SetActive(true);
+            _furnitureSlotsList[slotIndex]._uIObject.SetActive(true);
         }
         else
         {
@@ -39,55 +57,28 @@ public class FurnitureManager : MonoBehaviour
 
     public bool AssignPlanToSlot(FurniturePlanSO plan)
     {
-        foreach (var slot in FurnitureSlots)
+        foreach (var slot in _furnitureSlotsList)
         {
-            if (!slot.IsOccupied)
+            if (!slot._isOccupied && slot._uIObject.activeSelf)
             {
-                slot.Plan = plan;
-                slot.IsOccupied = true;
-                UpdateSlotUI(slot);
+                slot._plan = plan;
+                slot._isOccupied = true;
+
+                ItemCraft itemCraft = slot._uIObject.GetComponent<ItemCraft>();
+                if (itemCraft != null)
+                {
+                    itemCraft.CurrentSlot(slot);
+                }
+                else
+                {
+                    Debug.LogWarning("ItemCraft n'est pas attaché à ce slot !");
+                }
                 return true;
             }
+
         }
+        Debug.LogWarning("Aucun slot débloqué disponible pour ce plan.");
         return false;
     }
 
-
-    private void UpdateSlotUI(FurnitureSlot slot)
-    {
-        GameObject ui = slot.UIObject;
-
-        
-        ui.transform.Find("Title").GetComponent<Text>().text = slot.Plan._name;
-        ui.transform.Find("Cost").GetComponent<Text>().text = "Coût : " + slot.Plan._woodCost;
-        //ui.transform.Find("Profit").GetComponent<Text>().text = "Vente : " + slot.Plan._sellValue;
-        ui.transform.Find("Revenue").GetComponent<Text>().text = "Revenus : " + slot.Plan._revenuePerSecond + " / sec";
-
-        Image icon = ui.transform.Find("Icon").GetComponent<Image>();
-        if (icon != null && slot.Plan._icon != null)
-        {
-            icon.sprite = slot.Plan._icon;
-        }
-    }
-
-
-    private void Start()
-    {
-        StartCoroutine(UpdateRevenueUI());
-    }
-
-    private IEnumerator UpdateRevenueUI()
-    {
-        while (true)
-        {
-            foreach (var slot in FurnitureSlots)
-            {
-                if (slot.IsOccupied)
-                {
-                    UpdateSlotUI(slot);
-                }
-            }
-            yield return new WaitForSeconds(1); 
-        }
-    }
 }

@@ -1,75 +1,83 @@
 using System.Collections;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class MoveZone : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    private float _speed;
 
-    public Transform woodPos;
-    public Transform shopPos;
-    public GameObject rightButton;
-    public GameObject leftButton;
-    public GameObject sellPanel;
+    public Transform _woodPos;
+    public Transform _shopPos;
+    public GameObject _rightButton;
+    public GameObject _leftButton;
+    public GameObject _sellPanel;
 
 
 
-    private bool isMoving;
-    public bool onWood;
+    private bool _isMoving;
+    public bool _onWood;
 
     public void Start()
     {
-        leftButton.SetActive(false);
+        _leftButton.SetActive(false);
     }
     public void GoLeft()
     {
-        if (!isMoving)
+        if (!_isMoving)
         {
-            leftButton.SetActive(true);
-            sellPanel.SetActive(false);
+            _leftButton.SetActive(true);
+            _sellPanel.SetActive(false);
             StartCoroutine(MoveRight());
-            rightButton.SetActive(false);
+            _rightButton.SetActive(false);
         }
 
     }
     private IEnumerator MoveLeft()
     {
-        isMoving = true;
-        onWood = false;
+        _isMoving = true;
+        _onWood = false;
 
-        while (Vector3.Distance(transform.position, shopPos.position) > 0.1f)
+        while (Vector3.Distance(transform.position, _shopPos.position) > 0.1f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, shopPos.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _shopPos.position, _speed * Time.deltaTime);
             yield return null;
         }
-        transform.position = shopPos.position;
-        isMoving = false;
+        transform.position = _shopPos.position;
+        _isMoving = false;
     }
 
     public void GoRight()
     {
-        if (!isMoving)
+        if (!_isMoving)
         {
-            leftButton.SetActive(false);            
+            _leftButton.SetActive(false);            
             StartCoroutine(MoveLeft());
-            rightButton.SetActive(true);
-            sellPanel.SetActive(true);
+            _rightButton.SetActive(true);
+            _sellPanel.SetActive(true);
         }
         
     }
     private IEnumerator MoveRight()
     {
-        isMoving = true;
+        _isMoving = true;
         
-        while (Vector3.Distance(transform.position, woodPos.position) > 0.1f)
+        while (Vector3.Distance(transform.position, _woodPos.position) > 0.1f)
         {     
-            transform.position = Vector3.MoveTowards(transform.position, woodPos.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _woodPos.position, _speed * Time.deltaTime);
             yield return null;
         }
-        transform.position = woodPos.position;
-        isMoving = false;
-        onWood = true;
+        transform.position = _woodPos.position;
+        _isMoving = false;
+        _onWood = true;
     }
 
-    
+
+
+    public void OnZoneClicked()
+    {
+        if (_onWood == true)
+        {
+            Manager.Instance.AddWood(5);           
+        }
+    }
 }

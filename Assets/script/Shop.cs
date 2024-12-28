@@ -1,41 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    public FurnitureManager FurnitureManager;
-    public SpriteRenderer Shopsprite;
-    public Sprite[] ShopLVL;
-    private int CurentLVL;
+    //_____________________________________________________________________________//
+    //VARIABLE//
+    private int _currentLVL;
     private int _shopLVLupPrize = 1000;
 
+    public SpriteRenderer _shopSprite;
+    public Sprite[] _shopLVLSpriteList; 
+    public Text _shopUpgradeCost;
+    public Text _currentLVLUI;
+
+    //_____________________________________________________________________________//
     void Start()
     {
-        CurentLVL =  0;
-        FurnitureManager.InitializeSlots(5);
+        _currentLVL = 0;
+        FurnitureManager.Instance.InitializeSlots(5);
     }
 
-    public void AjouterPlan(FurniturePlanSO plan)
+    private void Update()
     {
-        bool success = FurnitureManager.AssignPlanToSlot(plan);
-        if (!success)
-        {
-            Debug.LogWarning("Pas de slot disponible pour le plan : " + plan._name);
-        }
+        _shopUpgradeCost.text = "LVL up for\n" + _shopLVLupPrize.ToString();
+        _currentLVLUI.text = "LVL " + _currentLVL.ToString();
     }
 
     public void ShopLvlUp()
     {
         if (Manager.Instance._money > _shopLVLupPrize)
         {
-            if (CurentLVL < 5)
+            if (_currentLVL < 5)
             {
+                _currentLVL++;
                 Manager.Instance._money -= _shopLVLupPrize;
-                Shopsprite.sprite = ShopLVL[CurentLVL];
-                FurnitureManager.UnlockSlot(CurentLVL);
-                CurentLVL++;
+                _shopSprite.sprite = _shopLVLSpriteList[_currentLVL];
+                FurnitureManager.Instance.UnlockSlot(_currentLVL - 1);
+                _shopLVLupPrize += 5000 * _currentLVL;
             }
             else
             {
