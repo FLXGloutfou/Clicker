@@ -35,9 +35,9 @@ public class PlanManager : MonoBehaviour
 
             
             _blueprintNameText.text = _currentDisplayedBlueprint._name;
-            _blueprintSellValueText.text = _currentDisplayedBlueprint._sellValue.ToString();
-            _blueprintCostText.text = _currentDisplayedBlueprint._blueprintCost.ToString();
-            _blueprintWoodCostText.text = "Coût : " + _currentDisplayedBlueprint._woodCost;
+            _blueprintSellValueText.text = "prix de revente: " + _currentDisplayedBlueprint._sellValue.ToString() + "Y";
+            _blueprintCostText.text = "acheter le plan pour:\n" + _currentDisplayedBlueprint._blueprintCost.ToString() + "Y";
+            _blueprintWoodCostText.text = "Coût en bois: " + _currentDisplayedBlueprint._woodCost;
             //PlanIcon.sprite = CurrentDisplayedPlan._icon;
 
             
@@ -64,13 +64,13 @@ public class PlanManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("Pas de slot disponible pour ce plan.");
+                    Manager.Instance.FeedBack("Pas de slot disponible");
                 }
             }
         }
         else
         {
-            Debug.Log("Pas assez d'argent pour acheter ce plan.");
+            Manager.Instance.FeedBack("Pas assez d'argent");
         }
     }
 }

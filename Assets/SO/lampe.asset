@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: lampe
   m_EditorClassIdentifier: 
   _name: Lampe
-  _woodCost: 5
+  _woodCost: 10
   _sellValue: 20
-  _blueprintCost: 30
+  _blueprintCost: 100
   _stock: 0
   _icon: {fileID: 0}

@@ -42,12 +42,12 @@ public class Shop : MonoBehaviour
             }
             else
             {
-                Debug.Log("Boutique au niveau maximum.");
+                Manager.Instance.FeedBack("Boutique LVL MAX");
             }
         }
         else
         {
-            Debug.Log("Pas assez d'argent.");
+            Manager.Instance.FeedBack("Pas assez d'argent");
         }
     }
 }

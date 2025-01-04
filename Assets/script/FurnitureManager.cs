@@ -12,13 +12,14 @@ public class FurnitureManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (FurnitureManager.Instance == null)
+        {
+            FurnitureManager.Instance = this;
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     //_____________________________________________________________________________//

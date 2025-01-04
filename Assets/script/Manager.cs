@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 
@@ -40,12 +41,23 @@ public class Manager : MonoBehaviour
     
 
     [SerializeField]
-    public Sprite[] icons;
-    public Image AxeIcone;
-    private int currentIconIndex = 0;
+    public Sprite[] _icons;
+    public Image _axeIcone;
+    private int _currentIconIndex = 0;
 
-    
+    public GameObject _feedBack;
+    public Text _feedBackText;
+
+
     //______________________________________________________________________________//
+
+    private void Start()
+    {
+        FeedBack("allez dans la zone de bois pour commencé à récolter !");
+    }
+
+
+
     public void SetWood(int newAmount)
     {
         _wood = newAmount;
@@ -68,14 +80,18 @@ public class Manager : MonoBehaviour
         {
             _money -= _autoLumberCost;
             _autoLumberCost += 100 + 200 * _autoLumberNumber;
-  
+
             _autoLumberNumber++;
             if (!_isAutoClicking)
             {
                 StartCoroutine(CreateAutoClic());
             }
         }
-        
+        else
+        {
+            FeedBack("Pas assez d'argent");
+        }
+
     }
 
     public IEnumerator CreateAutoClic()
@@ -100,14 +116,32 @@ public class Manager : MonoBehaviour
         {
             _maxToolUp++;
             _money -= _autoLumberToolCost;
-            _autoLumberToolCost = _autoLumberToolCost + 2500 * _maxToolUp ; 
-            _autoLumberValue += 5 * (_maxToolUp+1) ;
+            _autoLumberToolCost = _autoLumberToolCost + 2500 * _maxToolUp;
+            _autoLumberValue += 5 * (_maxToolUp + 1);
 
-            currentIconIndex = (currentIconIndex + 1) % icons.Length;
-            AxeIcone.sprite = icons[currentIconIndex];
+            _currentIconIndex = (_currentIconIndex + 1) % _icons.Length;
+            _axeIcone.sprite = _icons[_currentIconIndex];
+        }
+        else
+        {
+            FeedBack("Pas assez d'argent");
         }
     }
 
+    public void FeedBack(string info)
+    {
+        StartCoroutine(FeedBackPanel(info));
+    }
+
+    private IEnumerator FeedBackPanel(string info)
+    {
+        _feedBackText.text = info;
+        _feedBack.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        _feedBack.SetActive(false);
+    }
 
 }
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Chaise
   m_EditorClassIdentifier: 
   _name: Chaise
-  _woodCost: 10
+  _woodCost: 30
   _sellValue: 50
-  _blueprintCost: 20
-  _stock: 0
-  _icon: {fileID: 21300000, guid: a4c967833b2a11744b8f06975bd1a1e5, type: 3}
+  _blueprintCost: 300
+  _stock: 5
+  _icon: {fileID: 0}

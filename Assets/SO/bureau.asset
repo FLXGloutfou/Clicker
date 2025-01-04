@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: bureau
   m_EditorClassIdentifier: 
   _name: Bureau
-  _woodCost: 30
-  _sellValue: 30
-  _blueprintCost: 10
+  _woodCost: 50
+  _sellValue: 100
+  _blueprintCost: 500
   _stock: 0
   _icon: {fileID: 0}

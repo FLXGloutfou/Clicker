@@ -14,7 +14,7 @@ public class ItemCraft : MonoBehaviour
     private bool _isSelling = false;
 
     public void CurrentSlot(FurnitureSlot slot)
-    {
+    {  
         UpdateSlotUI(slot);
         _currentslot = slot;
     }
@@ -23,18 +23,18 @@ public class ItemCraft : MonoBehaviour
         if (Manager.Instance._wood > _currentslot._plan._woodCost)
         {
             _currentslot._plan._stock += 10;
-            Manager.Instance._wood -= _currentslot._plan._woodCost;
+            Manager.Instance._wood -= _currentslot._plan._woodCost * 10;
+            _stockUI.text = "stock:\n" + _currentslot._plan._stock.ToString();
 
             if (!_isSelling)
-            {
-                _stockUI.text = _currentslot._plan._stock.ToString();
+            {    
                 StartCoroutine(SellFromStock());
             }
             
         }
         else
         {
-            Debug.Log("pas assez de bois");
+            Manager.Instance.FeedBack("Pas assez de bois");
         }
     }
 
@@ -44,7 +44,7 @@ public class ItemCraft : MonoBehaviour
         while (_currentslot._plan._stock > 0)
         {
             _currentslot._plan._stock--;
-            _stockUI.text = _currentslot._plan._stock.ToString();
+            _stockUI.text = "stock:\n" + _currentslot._plan._stock.ToString();
             Manager.Instance._money += _currentslot._plan._sellValue;
             yield return new WaitForSeconds(1f);
         }
@@ -53,9 +53,10 @@ public class ItemCraft : MonoBehaviour
 
     private void UpdateSlotUI(FurnitureSlot slot)
     {
+        slot._plan._stock = 0;
         _titleUi.text = slot._plan._name;
-        _woodCostUi.text = slot._plan._woodCost.ToString();
-        _stockUI.text = slot._plan._stock.ToString();
+        _woodCostUi.text = "cout en bois par unité:\n" + slot._plan._woodCost.ToString();
+        _stockUI.text = "stock:\n" + slot._plan._stock.ToString();
 
         _iconUI.sprite = slot._plan._icon;
     }

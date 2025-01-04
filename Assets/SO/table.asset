@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: table
   m_EditorClassIdentifier: 
   _name: Table
-  _woodCost: 20
-  _sellValue: 100
-  _blueprintCost: 40
+  _woodCost: 40
+  _sellValue: 70
+  _blueprintCost: 800
   _stock: 0
-  _icon: {fileID: 21300000, guid: cf2daef351bd58144965b4c5c3dbb817, type: 3}
+  _icon: {fileID: 0}

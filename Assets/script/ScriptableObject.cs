@@ -7,6 +7,6 @@ public class FurniturePlanSO : ScriptableObject
     public int _woodCost; 
     public int _sellValue; 
     public int _blueprintCost;
-    public int _stock; 
+    public int _stock = 0; 
     public Sprite _icon; 
 }
