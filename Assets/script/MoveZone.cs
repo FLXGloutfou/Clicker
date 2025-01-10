@@ -12,6 +12,9 @@ public class MoveZone : MonoBehaviour
     public GameObject _leftButton;
     public GameObject _sellPanel;
 
+    public AudioManager audioManager;
+    public AudioClip _soundToPlay;
+
 
 
     private bool _isMoving;
@@ -77,7 +80,8 @@ public class MoveZone : MonoBehaviour
     {
         if (_onWood == true)
         {
-            Manager.Instance.AddWood(5);           
+            Manager.Instance.AddWood(5);
+            audioManager.PlaySFX(_soundToPlay);
         }
     }
 }
